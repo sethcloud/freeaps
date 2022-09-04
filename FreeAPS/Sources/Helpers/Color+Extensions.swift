@@ -51,6 +51,7 @@ extension Color {
     static let loopGray = Color("LoopGray")
     static let loopGreen = Color("LoopGreen")
     static let loopYellow = Color("LoopYellow")
+    static let loopPink = Color("LoopPink")
     static let loopRed = Color("LoopRed")
     //   static let insulin = Color("Insulin")
     static let uam = Color("UAM")
