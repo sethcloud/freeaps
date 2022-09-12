@@ -8,7 +8,7 @@ FreeAPS X uses original JavaScript files of oref0 and provides a user interface 
 
 This repo includes two branchs allowing to use OmniPod Dash pumps : 
 - the branch dash_dev includes the dash pump in the setting pump 
-- the branch dash_garmin_disf_dev includes the dash pump, but also the dISF implementation (with update of openAPS) and the garmin service to connect with garmin watches. 
+- the branch dash_garmin_disf_dev includes the dash pump, but also the dISF implementation (with update of openAPS) and the garmin service to connect with garmin watches. Be careful, this version will not compile correctly with the simulator - garmin issue 
 
 To use this branch : 
 
