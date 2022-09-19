@@ -5,8 +5,9 @@ extension PreferencesEditor {
     final class StateModel: BaseStateModel<Provider>, PreferencesSettable { private(set) var preferences = Preferences()
         @Published var unitsIndex = 1
         @Published var allowAnnouncements = false
-        @Published var insulinReqFraction: Decimal = 0.7
+        @Published var insulinReqFraction: Decimal = 2.0
         @Published var skipBolusScreenAfterCarbs = false
+        @Published var displayHR = false
 
         @Published var sections: [FieldSection] = []
 
@@ -15,6 +16,7 @@ extension PreferencesEditor {
 
             subscribeSetting(\.allowAnnouncements, on: $allowAnnouncements) { allowAnnouncements = $0 }
             subscribeSetting(\.insulinReqFraction, on: $insulinReqFraction) { insulinReqFraction = $0 }
+            subscribeSetting(\.displayHR, on: $displayHR) { displayHR = $0 }
             subscribeSetting(\.skipBolusScreenAfterCarbs, on: $skipBolusScreenAfterCarbs) { skipBolusScreenAfterCarbs = $0 }
 
             subscribeSetting(\.units, on: $unitsIndex.map { $0 == 0 ? GlucoseUnits.mgdL : .mmolL }) {
@@ -149,6 +151,63 @@ extension PreferencesEditor {
             ]
 
             // MARK: - SMB fields
+
+            let dynamicISF = [
+                Field(
+                    displayName: "Enable Dynamic ISF",
+                    type: .boolean(keypath: \.enableChris),
+                    infoText: NSLocalizedString(
+                        "Change ISF with every loop cycle. New ISF will be based on current BG, TDD if insulin (past 24 hours or a weighted average) and an Adjustment Factor (default is 1). Dynamic ISF and CR ratios will be limited by your autosens.min/max limits. Dynamic ratio replaces the autosens.ratio: New ISF = Static ISF / Dynamic ratio",
+                        comment: "Enable Dynamic ISF"
+                    ),
+                    settable: self
+                ),
+                Field(
+                    displayName: "Enable Dynamic CR",
+                    type: .boolean(keypath: \.enableDynamicCR),
+                    infoText: NSLocalizedString(
+                        "Use Dynamic CR. The dynamic ratio will be used also for CR: New CR = CR / Dynamic ratio. When using toghether with a high Insulin Fraction (>2), the recommended bolus for meals could get too high.",
+                        comment: "Use Dynamic CR together with Dynamic ISF"
+                    ),
+                    settable: self
+                ),
+                Field(
+                    displayName: "Adjustment Factor",
+                    type: .decimal(keypath: \.adjustmentFactor),
+                    infoText: NSLocalizedString(
+                        "Adjust Dynamic ratios by a constant. Default is 1. Higher than 1 => lower ISF",
+                        comment: "Adjust Dynamic ISF constant"
+                    ),
+                    settable: self
+                ),
+                Field(
+                    displayName: "Use Logarithmic Formula",
+                    type: .boolean(keypath: \.useNewFormula),
+                    infoText: NSLocalizedString(
+                        "New Logarithmic Formula. More aggressive at lower and normal BG and less aggressive at really high BG. Use a lower AF (compared to Original Formula) when using the Logaritmic Formula. ",
+                        comment: "Use Logarithmic Formula"
+                    ),
+                    settable: self
+                ),
+                Field(
+                    displayName: "Weighted Average of TDD. Weight of past 24 hours:",
+                    type: .decimal(keypath: \.weightPercentage),
+                    infoText: NSLocalizedString(
+                        "Has to be > 0 and <= 1.\nDefault is 0.65 (65 %) * past 24 hours. The rest will be from 7 days TDD average (0.35). To only use past 24 hours, set this to 1.\nTo avoid sudden fluctuations, an average of past 2 hours of TDD calc is used as past 24 hours TDD.",
+                        comment: "Weight of past 24 hours of TDD"
+                    ),
+                    settable: self
+                ),
+                Field(
+                    displayName: "Adjust basal",
+                    type: .boolean(keypath: \.tddAdjBasal),
+                    infoText: NSLocalizedString(
+                        "Enable adjustment of basal based on the ratio of 24 h : 7 day average TDD",
+                        comment: "Enable adjustment of basal based on the ratio of 24 h : 7 day average TDD"
+                    ),
+                    settable: self
+                )
+            ]
 
             let smbFields = [
                 Field(
