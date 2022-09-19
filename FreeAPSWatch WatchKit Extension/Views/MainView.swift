@@ -128,6 +128,7 @@ struct MainView: View {
                 }
             }
             Spacer()
+                .onAppear(perform: start)
         }.padding()
     }
 
