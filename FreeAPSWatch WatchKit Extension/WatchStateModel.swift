@@ -25,7 +25,6 @@ class WatchStateModel: NSObject, ObservableObject {
     @Published var isTempTargetViewActive = false
     @Published var isBolusViewActive = false
     @Published var displayHR = false
-    @Published var eventualBG = ""
     @Published var isConfirmationViewActive = false {
         didSet {
             confirmationTimeout = nil
