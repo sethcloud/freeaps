@@ -291,6 +291,7 @@
 		CE2CB20628C3FC5800C06A8A /* ConnectIQ.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE2CB1F828C3F97100C06A8A /* ConnectIQ.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE48C86428CA69D5007C0598 /* OmniBLEPumpManagerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE48C86328CA69D5007C0598 /* OmniBLEPumpManagerExtensions.swift */; };
 		CE48C86628CA6B48007C0598 /* OmniPodManagerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE48C86528CA6B48007C0598 /* OmniPodManagerExtensions.swift */; };
+		CE6B025528F347C3000C5502 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6B025428F347C3000C5502 /* HealthKit.framework */; };
 		CE82E02528E867BA00473A9C /* AlertStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82E02428E867BA00473A9C /* AlertStorage.swift */; };
 		CE82E02728E869DF00473A9C /* AlertEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82E02628E869DF00473A9C /* AlertEntry.swift */; };
 		CEB434DC28B8F5B900B70274 /* MKRingProgressView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB434DB28B8F5B900B70274 /* MKRingProgressView.framework */; };
@@ -728,6 +729,7 @@
 		CE2CB20428C3FAE000C06A8A /* GarminManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarminManager.swift; sourceTree = "<group>"; };
 		CE48C86328CA69D5007C0598 /* OmniBLEPumpManagerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniBLEPumpManagerExtensions.swift; sourceTree = "<group>"; };
 		CE48C86528CA6B48007C0598 /* OmniPodManagerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniPodManagerExtensions.swift; sourceTree = "<group>"; };
+		CE6B025428F347C3000C5502 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS9.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE82E02428E867BA00473A9C /* AlertStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStorage.swift; sourceTree = "<group>"; };
 		CE82E02628E869DF00473A9C /* AlertEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertEntry.swift; sourceTree = "<group>"; };
 		CEB434DB28B8F5B900B70274 /* MKRingProgressView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MKRingProgressView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -806,6 +808,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6B025528F347C3000C5502 /* HealthKit.framework in Frameworks */,
 				38E8755827567AE400975559 /* SwiftDate in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1167,6 +1170,7 @@
 		3818AA48274C267000843DB3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE6B025428F347C3000C5502 /* HealthKit.framework */,
 				CE2CB1F828C3F97100C06A8A /* ConnectIQ.xcframework */,
 				CEB434DE28B8F5C400B70274 /* OmniBLE.framework */,
 				CEB434DB28B8F5B900B70274 /* MKRingProgressView.framework */,
