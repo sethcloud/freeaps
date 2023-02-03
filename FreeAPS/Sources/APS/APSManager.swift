@@ -807,7 +807,8 @@ final class BaseAPSManager: APSManager, Injectable {
         let buildDate = Bundle.main.buildDate
         let version = Bundle.main.releaseVersionNumber
         let build = Bundle.main.buildVersionNumber
-        let branch = Bundle.main.infoDictionary?["BuildBranch"] as? String
+        let branch = Bundle.main.infoDictionary?["BuildBranch"] as? String ?? ""
+        let copyrightNotice_ = Bundle.main.infoDictionary?["NSHumanReadableCopyright"] as? String ?? ""
         let pump_ = pumpManager?.localizedTitle ?? ""
         let cgm = settingsManager.settings.cgm
         let file = OpenAPS.Monitor.statistics
@@ -971,6 +972,14 @@ final class BaseAPSManager: APSManager, Injectable {
         if nr_bgs > 0 {
             // Up to 91 days
             bg_total = bg / nr_bgs
+
+            // If less then 24 hours of glucose data, use total instead
+            if bg_1 == 0 {
+                bg_1 = bg_total
+                bgArray_1 = bgArrayForTIR
+                end1 = true
+                nr_bgs_1 = nr_bgs
+            }
         }
 
         // Total median
@@ -1035,7 +1044,7 @@ final class BaseAPSManager: APSManager, Injectable {
         // HbA1c estimation (%, mmol/mol) 1 day
         var NGSPa1CStatisticValue: Decimal = 0.0
         var IFCCa1CStatisticValue: Decimal = 0.0
-        if end1 {
+        if end1, bg_1 > 0 {
             NGSPa1CStatisticValue = (46.7 + bg_1) / 28.7 // NGSP (%)
             IFCCa1CStatisticValue = 10.929 *
                 (NGSPa1CStatisticValue - 2.152) // IFCC (mmol/mol)  A1C(mmol/mol) = 10.929 * (A1C(%) - 2.15)
@@ -1286,7 +1295,8 @@ final class BaseAPSManager: APSManager, Injectable {
             iOS: UIDevice.current.getOSInfo,
             Build_Version: version ?? "",
             Build_Number: build ?? "1",
-            Branch: branch ?? "N/A",
+            Branch: branch,
+            CopyRightNotice: String(copyrightNotice_.prefix(32)),
             Build_Date: buildDate,
             Algorithm: algo_,
             AdjustmentFactor: af,
